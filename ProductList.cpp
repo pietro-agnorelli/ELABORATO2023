@@ -12,6 +12,7 @@ void ProductList::notify() const {
 
 void ProductList::subscribe(Observer *observer) {
     observers.push_back(observer);
+    observer->update();
 }
 
 void ProductList::unsubscribe(Observer *observer) {
