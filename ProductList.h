@@ -12,17 +12,20 @@
 #include "Product.h"
 
 class ProductList: public Subject{
+public:
     ~ProductList();
-
     void notify() const override;
     void subscribe(Observer *observer) override;
     void unsubscribe(Observer *observer) override;
     void addProduct(Product* prod);
     void removeProduct(Product* prod);
+    int getTotalNum();
+    std::list<Product*>::iterator searchList(Product* prod);
 
 private:
     std::list<Observer*> observers;
     std::list<Product*> products;
+
 };
 
 

@@ -7,7 +7,9 @@
 
 #include <string>
 
-struct Product{
+class Product{
+public:
+    explicit Product(std::string name, std::string type="null", int q=0): name(name), type(type), quantity(q) {};
     std::string name;
     std::string type;
     int quantity;

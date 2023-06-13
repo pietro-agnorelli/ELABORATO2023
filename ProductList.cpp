@@ -19,13 +19,41 @@ void ProductList::unsubscribe(Observer *observer) {
 }
 
 void ProductList::addProduct(Product *prod) {
-    products.push_back(prod);
+    auto itr=searchList(prod);
+    if(itr!=products.end()){
+        (*itr)->quantity+=prod->quantity;
+    }
+    else{
+        products.push_back(prod);
+    }
     notify();
 }
 
 void ProductList::removeProduct(Product *prod) {
-    products.push_back(prod);
+    auto itr=searchList(prod);
+    if(itr!=products.end()){
+        products.remove(*itr);
+        notify();
+    }
+}
 
-    notify();
+int ProductList::getTotalNum() {
+    int total;
+    for(auto each : products){
+        total += each->quantity;
+    }
+    return total;
+}
+
+std::list<Product *>::iterator ProductList::searchList(Product *prod) {
+    bool found=false;
+    auto itr = products.begin();
+    do{
+        if((*itr)->name.compare(prod->name)){
+            found= true;
+        }
+        itr++;
+    }while(itr!=products.end() && !found);
+    return itr;
 }
 
