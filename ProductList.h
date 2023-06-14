@@ -19,8 +19,9 @@ public:
     void unsubscribe(Observer *observer) override;
     void addProduct(Product* prod);
     void removeProduct(Product* prod);
-    int getTotalNum();
+    int getTotalNum() const;
     std::list<Product*>::iterator searchList(Product* prod);
+    void viewProducts() const;
 
 private:
     std::list<Observer*> observers;

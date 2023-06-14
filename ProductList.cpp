@@ -2,6 +2,7 @@
 // Created by Pietro on 12/06/2023.
 //
 
+#include <iostream>
 #include "ProductList.h"
 
 void ProductList::notify() const {
@@ -38,7 +39,7 @@ void ProductList::removeProduct(Product *prod) {
     }
 }
 
-int ProductList::getTotalNum() {
+int ProductList::getTotalNum() const {
     int total;
     for(auto each : products){
         total += each->quantity;
@@ -56,5 +57,11 @@ std::list<Product *>::iterator ProductList::searchList(Product *prod) {
         itr++;
     }while(itr!=products.end() && !found);
     return itr;
+}
+
+void ProductList::viewProducts() const {
+    for(auto each : products){
+        std::cout << each->name << "   " << each->quantity << "   " << "Item Type: " << each->type << std::endl;
+    }
 }
 
