@@ -14,10 +14,15 @@ public:
     User(std::string name, ProductList* list): name(name), list(list) {
         list->subscribe(this);
     }
+    ~User(){
+        list->unsubscribe(this);
+        delete list;
+    };
     void update() override;
     void addToList(std::string name, std::string type, int quantity);
     void removeFromList(std::string name);
     void viewList() const;
+
 
 private:
     std::string name;
