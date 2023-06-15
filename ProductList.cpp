@@ -23,7 +23,7 @@ void ProductList::unsubscribe(Observer *observer) {
 void ProductList::addProduct(Product *prod) {
     auto itr=searchList(prod);
     if(itr!=products.end()){
-        (*itr)->quantity+=prod->quantity;
+        (*itr)->setQuantity((*itr)->getQuantity() + prod->getQuantity());
     }
     else{
         products.push_back(prod);
@@ -42,7 +42,7 @@ void ProductList::removeProduct(Product *prod) {
 int ProductList::getTotalNum() const {
     int total;
     for(auto each : products){
-        total += each->quantity;
+        total += each->getQuantity();
     }
     return total;
 }
@@ -51,7 +51,7 @@ std::list<Product *>::iterator ProductList::searchList(Product *prod) {
     bool found=false;
     auto itr = products.begin();
     do{
-        if((*itr)->name.compare(prod->name)){
+        if((*itr)->getName().compare(prod->getName())){
             found= true;
         }
         itr++;
@@ -61,7 +61,16 @@ std::list<Product *>::iterator ProductList::searchList(Product *prod) {
 
 void ProductList::viewProducts() const {
     for(auto each : products){
-        std::cout << each->name << "   " << each->quantity << "   " << "Item Type: " << each->type << std::endl;
+        std::cout << each->getName() << "   " << each->getQuantity() << "   " << "Item Type: " << each->getType() << std::endl;
+    }
+}
+
+ProductList::~ProductList() {
+    for(auto product: products){
+        products.remove(product);
+    }
+    for(auto observer: observers){
+        observers.remove(observer);
     }
 }
 

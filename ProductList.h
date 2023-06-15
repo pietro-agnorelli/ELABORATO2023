@@ -13,6 +13,7 @@
 
 class ProductList: public Subject{
 public:
+    ProductList(){};
     ~ProductList();
     void notify() const override;
     void subscribe(Observer *observer) override;
