@@ -24,6 +24,30 @@ void User::removeFromList(std::string name) {
     list->removeProduct(new Product(name));
 }
 
+const std::string &User::getName() const {
+    return name;
+}
+
+ProductList *User::getList() const {
+    return list;
+}
+
+int User::getTotalItems() const {
+    return totalItems;
+}
+
+void User::setName(const std::string &n) {
+    User::name = n;
+}
+
+void User::setList(ProductList *l) {
+    list = l;
+}
+
+void User::setTotalItems(int total) {
+    totalItems = total;
+}
+
 
 
 

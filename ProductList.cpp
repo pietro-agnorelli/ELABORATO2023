@@ -39,8 +39,8 @@ void ProductList::removeProduct(Product *prod) {
     }
 }
 
-int ProductList::getTotalNum() const {
-    int total;
+int ProductList::getTotalNum(){
+    int total=0;
     for(auto each : products){
         total += each->getQuantity();
     }
@@ -48,14 +48,14 @@ int ProductList::getTotalNum() const {
 }
 
 std::list<Product *>::iterator ProductList::searchList(Product *prod) {
-    bool found=false;
+    bool found = false;
     auto itr = products.begin();
-    do{
-        if((*itr)->getName().compare(prod->getName())){
-            found= true;
+    while (itr != products.end() && !found) {
+        if ((*itr)->getName()==(prod->getName())) {
+            found = true;
         }
         itr++;
-    }while(itr!=products.end() && !found);
+    }
     return itr;
 }
 

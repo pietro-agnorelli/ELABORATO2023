@@ -20,7 +20,7 @@ public:
     void unsubscribe(Observer *observer) override;
     void addProduct(Product* prod);
     void removeProduct(Product* prod);
-    int getTotalNum() const;
+    int getTotalNum();
     std::list<Product*>::iterator searchList(Product* prod);
     void viewProducts() const;
 

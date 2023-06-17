@@ -11,7 +11,8 @@
 
 class User : public Observer{
 public:
-    User(std::string name, ProductList* list): name(name), list(list) {
+    User(){};
+    User(std::string name, ProductList* list): name(std::move(name)), list(list) {
         list->subscribe(this);
     }
     ~User(){
@@ -22,6 +23,14 @@ public:
     void addToList(std::string name, std::string type, int quantity);
     void removeFromList(std::string name);
     void viewList() const;
+
+    const std::string &getName() const;
+    ProductList *getList() const;
+    int getTotalItems() const;
+
+    void setName(const std::string &name);
+    void setList(ProductList *list);
+    void setTotalItems(int totalItems);
 
 
 private:

@@ -9,7 +9,7 @@
 
 class Product{
 public:
-    explicit Product(std::string name, std::string type="null", int q=0): name(name), type(type), quantity(q) {};
+    explicit Product(std::string name, std::string type="null", int q=1): name(std::move(name)), type(std::move(type)), quantity(q) {};
 
     const std::string &getName() const {
         return name;
@@ -21,14 +21,14 @@ public:
         return quantity;
     }
 
-    void setName(const std::string &name) {
-        Product::name = name;
+    void setName(const std::string &n) {
+        name = n;
     }
-    void setType(const std::string &type) {
-        Product::type = type;
+    void setType(const std::string &t) {
+        type = t;
     }
-    void setQuantity(int quantity) {
-        Product::quantity = quantity;
+    void setQuantity(int q) {
+        quantity = q;
     }
 
 private:
