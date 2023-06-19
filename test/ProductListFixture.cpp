@@ -8,11 +8,7 @@
 
 class ProductListSuite: public ::testing::Test{
 protected:
-    virtual void SetUp(){
-        user.setName("name");
-        user.setTotalItems(0);
-        user.setList(&list);
-        list.subscribe(&user);
+    ProductListSuite(): user("name", &list){
         list.addProduct(new Product("Product1"));
         list.addProduct(new Product("Product2", "type", 1));
     }
@@ -22,20 +18,20 @@ protected:
 
 
 TEST_F(ProductListSuite, TestConstruction){
-    ASSERT_EQ(list.getTotalNum(), 2);
+    ASSERT_EQ(2, list.getTotalNum());
 }
 
-/*TEST_F(ProductListSuite, TestAddProduct){
+TEST_F(ProductListSuite, TestAddProduct){
     Product* prod3 = new Product("Product3");
     list.addProduct(prod3);
     list.addProduct(new Product("Product1"));
-    ASSERT_EQ((*list.searchList(prod3))->getQuantity(), 1);
-    ASSERT_EQ((*list.searchList(new Product("Product1")))->getQuantity(), 2);
+    EXPECT_EQ((*list.searchList(prod3))->getQuantity(), 1);
+    EXPECT_EQ((*list.searchList(new Product("Product1")))->getQuantity(), 2);
     EXPECT_EQ((*list.searchList(new Product("Product1")))->getType(), "null");
 }
 
 
 TEST_F(ProductListSuite, TestRemoveProduct){
     list.removeProduct(new Product("Product2"));
-    EXPECT_EQ(*list.searchList(new Product("Product2")), nullptr);
-}*/
+    EXPECT_EQ(list.getTotalNum(), 1);
+}
