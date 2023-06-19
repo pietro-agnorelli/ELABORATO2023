@@ -11,13 +11,12 @@
 
 class User : public Observer{
 public:
-    User(){};
-    User(std::string name, ProductList* list): name(std::move(name)), list(list) {
+    explicit User(std::string name, ProductList* list): name(std::move(name)), list(list) {
+        totalItems=0;
         list->subscribe(this);
     }
-    ~User(){
+    ~User() override{
         list->unsubscribe(this);
-        delete list;
     };
     void update() override;
     void addToList(std::string name, std::string type, int quantity);

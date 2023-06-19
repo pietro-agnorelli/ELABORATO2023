@@ -16,12 +16,12 @@ void User::viewList() const {
     std::cout << "Total items: " << totalItems << std::endl;
 }
 
-void User::addToList(std::string name, std::string type, int quantity) {
-    list->addProduct(new Product(name, type, quantity));
+void User::addToList(std::string n, std::string t, int quantity) {
+    list->addProduct(new Product(n, t, quantity));
 }
 
-void User::removeFromList(std::string name) {
-    list->removeProduct(new Product(name));
+void User::removeFromList(std::string n) {
+    list->removeProduct(new Product(n));
 }
 
 const std::string &User::getName() const {

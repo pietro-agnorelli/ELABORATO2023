@@ -32,14 +32,14 @@ void ProductList::addProduct(Product *prod) {
 }
 
 void ProductList::removeProduct(Product *prod) {
-    auto itr=searchList(prod);
+    auto itr = searchList(prod);
     if(itr!=products.end()){
-        products.remove(*itr);
-        notify();
+        products.remove((*itr));
     }
+    notify();
 }
 
-int ProductList::getTotalNum(){
+int ProductList::getTotalNum() const{
     int total=0;
     for(auto each : products){
         total += each->getQuantity();
@@ -54,7 +54,9 @@ std::list<Product *>::iterator ProductList::searchList(Product *prod) {
         if ((*itr)->getName()==(prod->getName())) {
             found = true;
         }
-        itr++;
+        else{
+            itr++;
+        }
     }
     return itr;
 }
@@ -68,9 +70,6 @@ void ProductList::viewProducts() const {
 ProductList::~ProductList() {
     for(auto product: products){
         products.remove(product);
-    }
-    for(auto observer: observers){
-        observers.remove(observer);
     }
 }
 

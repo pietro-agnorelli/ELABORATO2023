@@ -13,14 +13,14 @@
 
 class ProductList: public Subject{
 public:
-    ProductList(){};
-    ~ProductList();
+    ProductList()= default;;
+    ~ProductList() override;
     void notify() const override;
     void subscribe(Observer *observer) override;
     void unsubscribe(Observer *observer) override;
     void addProduct(Product* prod);
     void removeProduct(Product* prod);
-    int getTotalNum();
+    int getTotalNum() const;
     std::list<Product*>::iterator searchList(Product* prod);
     void viewProducts() const;
 
