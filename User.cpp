@@ -37,7 +37,7 @@ int User::getTotalItems() const {
 }
 
 void User::setName(const std::string &n) {
-    User::name = n;
+    name = n;
 }
 
 void User::setList(ProductList *l) {
