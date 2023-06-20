@@ -69,7 +69,7 @@ void ProductList::viewProducts() const {
 
 ProductList::~ProductList() {
     for(auto product: products){
-        products.remove(product);
+        delete product;
     }
 }
 
