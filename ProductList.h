@@ -12,20 +12,20 @@
 
 class ProductList: public Subject{
 public:
-    ProductList()= default;;
-    ~ProductList() override;
+    ProductList(){};
+    ~ProductList() override{};
     void notify() const override;
     void subscribe(Observer *observer) override;
     void unsubscribe(Observer *observer) override;
-    void addProduct(Product* prod);
-    void removeProduct(Product* prod);
+    void addProduct(const Product& prod);
+    void removeProduct(const Product& prod);
     int getTotalNum() const;
-    std::list<Product*>::iterator searchList(Product* prod);
-    void viewProducts() const;
+    std::list<Product>::iterator searchList(const Product& prod);
+    std::stringstream viewProducts() const;
 
 private:
     std::list<Observer*> observers;
-    std::list<Product*> products;
+    std::list<Product> products;
 
 };
 

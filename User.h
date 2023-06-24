@@ -8,29 +8,22 @@
 
 #include "Observer.h"
 #include "ProductList.h"
+#include <sstream>
 
 class User : public Observer{
 public:
-    User(std::string n, ProductList* list): name(std::move(n)), list(list) {
-        totalItems=0;
+    User(const std::string& n, ProductList* list): name(n), list(list), totalItems(0) {
         list->subscribe(this);
     }
-    ~User() override{
+    ~User() {
         list->unsubscribe(this);
     }
     void update() override;
-    void addToList(std::string name, std::string type, int quantity);
-    void removeFromList(std::string name);
+    void addToList(const std::string& name, const std::string& type="", int quantity=1, bool bought=false);
+    void removeFromList(const std::string& name);
     void viewList() const;
 
-    const std::string &getName() const;
-    ProductList *getList() const;
     int getTotalItems() const;
-
-    void setName(const std::string &name);
-    void setList(ProductList *list);
-    void setTotalItems(int totalItems);
-
 
 private:
     std::string name;

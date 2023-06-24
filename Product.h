@@ -9,7 +9,7 @@
 
 class Product{
 public:
-    explicit Product(std::string name, std::string type="null", int q=1): name(std::move(name)), type(std::move(type)), quantity(q) {};
+    explicit Product(const std::string& name,const std::string& type="", int q=1, bool b=false): name(name), type(type), quantity(q), bought(b) {};
 
     const std::string &getName() const {
         return name;
@@ -21,20 +21,24 @@ public:
         return quantity;
     }
 
-    void setName(const std::string &n) {
-        name = n;
+    bool isBought() const{
+        return bought;
     }
-    void setType(const std::string &t) {
-        type = t;
-    }
+
     void setQuantity(int q) {
         quantity = q;
     }
+
+    void setBought(bool b){
+        bought=b;
+    }
+
 
 private:
     std::string name;
     std::string type;
     int quantity;
+    bool bought;
 };
 
 #endif //ELABORATO2023_PRODUCT_H

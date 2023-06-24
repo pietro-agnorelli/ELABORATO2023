@@ -9,6 +9,7 @@
 TEST(Product, DeafultConstructor){
     Product p("name");
     EXPECT_EQ("name", p.getName());
-    EXPECT_EQ("null", p.getType());
+    EXPECT_EQ("", p.getType());
     ASSERT_EQ(1, p.getQuantity());
+    ASSERT_FALSE(p.isBought());
 }

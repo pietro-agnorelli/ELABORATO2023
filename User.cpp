@@ -12,40 +12,21 @@ void User::update() {
 
 void User::viewList() const {
     std::cout << name << "'s list: " << std::endl;
-    list->viewProducts();
+    std::cout << list->viewProducts().str();
     std::cout << "Total items: " << totalItems << std::endl;
 }
 
-void User::addToList(std::string n, std::string t, int quantity) {
-    list->addProduct(new Product(n, t, quantity));
+void User::addToList(const std::string& n, const std::string& t, int quantity, bool bought) {
+    list->addProduct(Product(n, t, quantity, bought));
 }
 
-void User::removeFromList(std::string n) {
-    list->removeProduct(new Product(n));
+void User::removeFromList(const std::string& n) {
+    list->removeProduct(Product(n));
 }
 
-const std::string &User::getName() const {
-    return name;
-}
-
-ProductList *User::getList() const {
-    return list;
-}
 
 int User::getTotalItems() const {
     return totalItems;
-}
-
-void User::setName(const std::string &n) {
-    name = n;
-}
-
-void User::setList(ProductList *l) {
-    list = l;
-}
-
-void User::setTotalItems(int total) {
-    totalItems = total;
 }
 
 

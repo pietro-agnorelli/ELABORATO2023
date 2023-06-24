@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <sstream>
 #include "ProductList.h"
 
 void ProductList::notify() const {
@@ -20,10 +21,11 @@ void ProductList::unsubscribe(Observer *observer) {
     observers.remove(observer);
 }
 
-void ProductList::addProduct(Product *prod) {
+void ProductList::addProduct(const Product& prod) {
     auto itr=searchList(prod);
     if(itr!=products.end()){
-        (*itr)->setQuantity((*itr)->getQuantity() + prod->getQuantity());
+        (*itr).setQuantity((*itr).getQuantity() + prod.getQuantity());
+        (*itr).setBought(prod.isBought());
     }
     else{
         products.push_back(prod);
@@ -31,27 +33,24 @@ void ProductList::addProduct(Product *prod) {
     notify();
 }
 
-void ProductList::removeProduct(Product *prod) {
+void ProductList::removeProduct(const Product& prod) {
     auto itr = searchList(prod);
     if(itr!=products.end()){
-        products.remove((*itr));
+        products.erase(itr);
     }
     notify();
 }
 
-int ProductList::getTotalNum() const{
-    int total=0;
-    for(auto each : products){
-        total += each->getQuantity();
-    }
-    return total;
+int ProductList::getTotalNum() const {
+    return products.size();
 }
 
-std::list<Product *>::iterator ProductList::searchList(Product *prod) {
+
+std::list<Product>::iterator ProductList::searchList(const Product& prod) {
     bool found = false;
     auto itr = products.begin();
     while (itr != products.end() && !found) {
-        if ((*itr)->getName()==(prod->getName())) {
+        if ((*itr).getName()==(prod.getName())) {
             found = true;
         }
         else{
@@ -61,15 +60,17 @@ std::list<Product *>::iterator ProductList::searchList(Product *prod) {
     return itr;
 }
 
-void ProductList::viewProducts() const {
-    for(auto each : products){
-        std::cout << each->getName() << "   " << each->getQuantity() << "   " << "Item Type: " << each->getType() << std::endl;
+std::stringstream ProductList::viewProducts() const {
+    std::stringstream output;
+    for(const auto& each : products){
+        output<< each.getName() << "   " << each.getQuantity() << "   " ;
+        if(each.isBought()){
+            output<<"Bought";
+        }
+        else{
+            output<<"To buy";
+        }
+        output<< "    Item Type: " << each.getType()<< '\n';
     }
+    return output;
 }
-
-ProductList::~ProductList() {
-    for(auto product: products){
-        delete product;
-    }
-}
-

@@ -9,7 +9,7 @@
 class UserSuite: public ::testing::Test{
 protected:
     UserSuite(): user("name", &list){
-        list.addProduct(new Product("Product1"));
+        list.addProduct(Product("Product1"));
     }
     ProductList list;
     User user;
@@ -17,15 +17,15 @@ protected:
 
 
 TEST_F(UserSuite, TestAddToList){
-    user.addToList("Product2", "type", 3);
-    ASSERT_EQ((*list.searchList(new Product("Product2")))->getQuantity(), 3);
-    ASSERT_EQ((*list.searchList(new Product("Product2")))->getType(), "type");
+    user.addToList("Product2");
+    ASSERT_EQ((*list.searchList(Product("Product2"))).getQuantity(), 1);
+    ASSERT_EQ((*list.searchList(Product("Product2"))).getType(), "");
 }
 
 TEST_F(UserSuite, TestUpdate){
     list.notify();
     ASSERT_EQ(user.getTotalItems(), 1);
-    user.addToList("Product2", "type", 1);
+    user.addToList("Product2");
     ASSERT_EQ(user.getTotalItems(), 2);
 }
 

@@ -8,8 +8,8 @@
 class ProductListSuite: public ::testing::Test{
 protected:
     ProductListSuite(){
-        list.addProduct(new Product("Product1"));
-        list.addProduct(new Product("Product2", "type", 1));
+        list.addProduct(Product("Product1"));
+        list.addProduct(Product("Product2", "type", 1));
     }
     ProductList list;
 };
@@ -20,19 +20,21 @@ TEST_F(ProductListSuite, TestConstruction){
 }
 
 TEST_F(ProductListSuite, TestAddNewProduct){
-    Product* prod3 = new Product("Product3");
+    Product prod3("Product3");
     list.addProduct(prod3);
-    ASSERT_EQ((*list.searchList(prod3))->getQuantity(), 1);
+    ASSERT_EQ((*list.searchList(prod3)).getQuantity(), 1);
 }
 
 TEST_F(ProductListSuite, TestAddOldProduct){
-    list.addProduct(new Product("Product1", "type", 1));
-    ASSERT_EQ((*list.searchList(new Product("Product1")))->getQuantity(), 2);
-    ASSERT_EQ((*list.searchList(new Product("Product1")))->getType(), "null");
+    Product prod1("Product2", "", 1, true);
+    list.addProduct(prod1);
+    ASSERT_EQ((*list.searchList(prod1)).getQuantity(), 2);
+    ASSERT_EQ((*list.searchList(prod1)).getType(), "type");
+    ASSERT_TRUE((*list.searchList(prod1)).isBought());
 }
 
 
 TEST_F(ProductListSuite, TestRemoveProduct){
-    list.removeProduct(new Product("Product2"));
+    list.removeProduct(Product("Product2"));
     ASSERT_EQ(list.getTotalNum(), 1);
 }
